@@ -4,11 +4,13 @@
  * Free for public/private use in applications
 */
 
+/*
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+*/
 
 namespace EZDatabase
 {
@@ -25,12 +27,12 @@ namespace EZDatabase
         /// </summary>
         /// <param name="file">The name of the file to save the data in</param>
         /// <param name="createFile">Should the file be created if it doesn't already exist</param>
-        public Database(string file, bool createFile)
+        public Database(string file, bool createFile = true)
         {
             this.file = file;
             if (!createFile) return;
             lock (this) // Locking so thread read/write
-                new FileStream(file, FileMode.OpenOrCreate).Dispose(); // Creating the database file (if not already created)
+                File.Open(file, (FileMode)4).Dispose(); // Creating the database file (if not already created)
         }
 
         /// <summary>
