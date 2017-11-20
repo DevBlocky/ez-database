@@ -4,13 +4,11 @@
  * Free for public/private use in applications
 */
 
-/*
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-*/
 
 namespace EZDatabase
 {
@@ -53,7 +51,7 @@ namespace EZDatabase
                         using (var gzip = new GZipStream(compressed, CompressionMode.Decompress, true)) // creating decompresser stream
                             gzip.CopyTo(uncompressed); // copy stream to the uncompressed stream for manipulation
                         uncompressed.Position = 0; // Setting the position to 0 for deserialization
-                        return new BinaryFormatter().Deserialize(uncompressed); // Deserialization of the bytes given
+                        return uncompressed.Length != 0 ? new BinaryFormatter().Deserialize(uncompressed) : null; // Deserialization of the bytes given
                     }
                 }
             }
